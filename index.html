@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediTrack - Smart Medicine Management</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Animated Background Elements -->
+    <div class="bg-elements">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+        <div class="circle circle-3"></div>
+        <div class="square square-1"></div>
+        <div class="square square-2"></div>
+        <div class="triangle triangle-1"></div>
+        <div class="triangle triangle-2"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <i class="fas fa-pills"></i>
+                <h1>Medi<span>Track</span></h1>
+            </div>
+            <div class="nav-buttons">
+                <a href="login.html" class="btn-login">
+                    <span class="btn-text">Login</span>
+                    <div class="btn-overlay"></div>
+                </a>
+                <a href="login.html?mode=signup" class="btn-signup">
+                    <span class="btn-text">Sign Up</span>
+                    <div class="btn-overlay"></div>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h2 class="hero-title">Never Miss A Dose Again</h2>
+                    <p class="hero-subtitle">Intelligent medicine tracking with smart reminders, prescription management, and health analytics</p>
+                    <div class="hero-buttons">
+                        <a href="login.html?mode=signup" class="cta-button">
+                            <span>Get Started Free</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="#features" class="secondary-button">
+                            <span>Explore Features</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="floating-device">
+                        <div class="device-screen">
+                            <div class="screen-content">
+                                <div class="med-time">08:00 AM</div>
+                                <div class="med-name">Vitamin D3</div>
+                                <div class="med-dose">1 Tablet</div>
+                                <div class="reminder-active">
+                                    <i class="fas fa-bell"></i> Reminder Active
+                                </div>
+                            </div>
+                        </div>
+                        <div class="device-frame"></div>
+                    </div>
+                    <div class="floating-pill pill-1">
+                        <i class="fas fa-pills"></i>
+                    </div>
+                    <div class="floating-pill pill-2">
+                        <i class="fas fa-capsules"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Smart Medicine Management</h2>
+                <p>Designed with care to ensure you never miss a dose</p>
+            </div>
+            <div class="features-grid">
+                <!-- Feature Card 1 -->
+                <div class="feature-card">
+                    <div class="card-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3>Intelligent Reminders</h3>
+                    <p>Customizable notifications that adapt to your schedule. Receive alerts via app, email, or SMS to ensure you never miss a dose.</p>
+                    <div class="card-animation">
+                        <div class="pulse-ring"></div>
+                        <div class="notification-bell">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature Card 2 -->
+                <div class="feature-card">
+                    <div class="card-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <h3>Dose History & Analytics</h3>
+                    <p>Track your medication adherence with detailed history and visual analytics. Identify patterns and improve your health regimen.</p>
+                    <div class="card-animation">
+                        <div class="chart-container">
+                            <div class="chart-bar bar-1"></div>
+                            <div class="chart-bar bar-2"></div>
+                            <div class="chart-bar bar-3"></div>
+                            <div class="chart-bar bar-4"></div>
+                            <div class="chart-bar bar-5"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature Card 3 -->
+                <div class="feature-card">
+                    <div class="card-icon">
+                        <i class="fas fa-file-medical"></i>
+                    </div>
+                    <h3>Prescription Management</h3>
+                    <p>Digitally store and organize your prescriptions. Set up medications directly from scanned prescriptions with our AI technology.</p>
+                    <div class="card-animation">
+                        <div class="prescription-scan">
+                            <div class="scan-line"></div>
+                            <div class="document">
+                                <i class="fas fa-file-prescription"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature Card 4 -->
+                <div class="feature-card">
+                    <div class="card-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3>Auto-Generated Charts</h3>
+                    <p>Automatically generate daily, weekly, and monthly medication schedules. Export to PDF or share with caregivers.</p>
+                    <div class="card-animation">
+                        <div class="calendar-grid">
+                            <div class="calendar-day active">M</div>
+                            <div class="calendar-day">T</div>
+                            <div class="calendar-day active">W</div>
+                            <div class="calendar-day">T</div>
+                            <div class="calendar-day active">F</div>
+                            <div class="calendar-day">S</div>
+                            <div class="calendar-day">S</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2>Simple & Effective</h2>
+                <p>Get started in just three easy steps</p>
+            </div>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3>Add Your Medications</h3>
+                        <p>Enter medicine names, dosages, and timing. Upload prescriptions for automatic entry.</p>
+                    </div>
+                    <div class="step-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3>Set Custom Reminders</h3>
+                        <p>Choose notification preferences and schedule reminders that fit your daily routine.</p>
+                    </div>
+                    <div class="step-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3>Track & Manage</h3>
+                        <p>Monitor adherence, view history, and adjust your regimen based on intelligent insights.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <i class="fas fa-pills"></i>
+                        <h2>Medi<span>Track</span></h2>
+                    </div>
+                    <p>Your intelligent partner in health management.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4>Product</h4>
+                        <a href="#">Features</a>
+                        <a href="#">Pricing</a>
+                        <a href="#">API</a>
+                    </div>
+                    <div class="link-group">
+                        <h4>Company</h4>
+                        <a href="#">About</a>
+                        <a href="#">Blog</a>
+                        <a href="#">Careers</a>
+                    </div>
+                    <div class="link-group">
+                        <h4>Legal</h4>
+                        <a href="#">Privacy</a>
+                        <a href="#">Terms</a>
+                        <a href="#">Security</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MediTrack. All rights reserved. This is a demo application.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

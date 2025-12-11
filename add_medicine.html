@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Medicine - MediTrack</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Add Medicine Specific Styles */
+        .medicine-form-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .form-section {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .form-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+        }
+        
+        .form-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .form-header-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+        
+        .form-group {
+            position: relative;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--light);
+        }
+        
+        .form-input, .form-select {
+            width: 100%;
+            padding: 15px 20px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: var(--light);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 30px rgba(74, 111, 255, 0.1);
+        }
+        
+        .time-slots-container {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .time-slot {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 15px;
+            transition: var(--transition);
+        }
+        
+        .time-slot:hover {
+            border-color: var(--primary);
+        }
+        
+        .time-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--light);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            padding: 10px;
+        }
+        
+        .add-time-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--glass-bg);
+            border: 1px dashed var(--glass-border);
+            border-radius: 12px;
+            padding: 15px;
+            color: var(--gray);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .add-time-btn:hover {
+            border-color: var(--primary);
+            color: var(--light);
+        }
+        
+        .remove-time-btn {
+            background: rgba(239, 68, 68, 0.1);
+            border: none;
+            color: var(--danger);
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .remove-time-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+        }
+        
+        .frequency-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        
+        .frequency-option {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .frequency-option:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .frequency-option.selected {
+            background: rgba(74, 111, 255, 0.1);
+            border-color: var(--primary);
+        }
+        
+        .frequency-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 40px;
+        }
+        
+        .submit-btn {
+            padding: 16px 40px;
+            background: var(--gradient);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(74, 111, 255, 0.3);
+        }
+        
+        .cancel-btn {
+            padding: 16px 30px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: var(--light);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .cancel-btn:hover {
+            border-color: var(--primary);
+        }
+        
+        /* Medicine Preview */
+        .medicine-preview {
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            width: 300px;
+            background: var(--sidebar-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--glass-shadow);
+            transform: translateX(400px);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 100;
+        }
+        
+        .medicine-preview.show {
+            transform: translateX(0);
+        }
+        
+        .preview-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .preview-medicine {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 20px;
+        }
+        
+        .preview-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .preview-schedule {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .medicine-preview {
+                display: none;
+            }
+            
+            .frequency-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Background Effects -->
+        <div class="app-bg-effects"></div>
+        
+        <!-- Sidebar Navigation (Same as dashboard) -->
+        <aside class="sidebar">
+            <!-- Same sidebar as dashboard -->
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div>
+                    <h1 style="font-size: 2rem; margin: 0;">Add New Medicine</h1>
+                    <p style="color: var(--gray); margin: 5px 0 0 0;">Track your health journey</p>
+                </div>
+                
+                <div class="top-actions">
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <div class="notification-badge"></div>
+                    </button>
+                    
+                    <button class="user-menu-btn">
+                        <div class="user-avatar small">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span>Alex</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Medicine Form -->
+            <div class="medicine-form-container">
+                <!-- Basic Information -->
+                <div class="form-section">
+                    <div class="form-header">
+                        <div class="form-header-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div>
+                            <h2>Basic Information</h2>
+                            <p style="color: var(--gray);">Enter medicine details</p>
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Medicine Name</label>
+                            <input type="text" class="form-input" placeholder="e.g., Vitamin D3" id="medicineName">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Medicine Type</label>
+                            <select class="form-select" id="medicineType">
+                                <option value="">Select type</option>
+                                <option value="tablet">Tablet</option>
+                                <option value="capsule">Capsule</option>
+                                <option value="syrup">Syrup</option>
+                                <option value="injection">Injection</option>
+                                <option value="cream">Cream</option>
+                                <option value="supplement">Supplement</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Dosage</label>
+                            <input type="text" class="form-input" placeholder="e.g., 500mg or 1 tablet" id="dosage">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Manufacturer</label>
+                            <input type="text" class="form-input" placeholder="Optional" id="manufacturer">
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label class="form-label">Instructions</label>
+                            <textarea class="form-input" rows="3" placeholder="Any special instructions..." id="instructions"></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Schedule & Frequency -->
+                <div class="form-section">
+                    <div class="form-header">
+                        <div class="form-header-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h2>Schedule & Frequency</h2>
+                            <p style="color: var(--gray);">Set your medication schedule</p>
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Start Date</label>
+                            <input type="date" class="form-input" id="startDate">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">End Date</label>
+                            <input type="date" class="form-input" id="endDate">
+                            <small style="color: var(--gray); display: block; margin-top: 5px;">Leave empty for ongoing</small>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label class="form-label">Frequency</label>
+                            <div class="frequency-options">
+                                <div class="frequency-option" data-frequency="daily">
+                                    <div class="frequency-icon">
+                                        <i class="fas fa-calendar-day"></i>
+                                    </div>
+                                    <div>Daily</div>
+                                </div>
+                                
+                                <div class="frequency-option" data-frequency="weekly">
+                                    <div class="frequency-icon">
+                                        <i class="fas fa-calendar-week"></i>
+                                    </div>
+                                    <div>Weekly</div>
+                                </div>
+                                
+                                <div class="frequency-option" data-frequency="monthly">
+                                    <div class="frequency-icon">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </div>
+                                    <div>Monthly</div>
+                                </div>
+                                
+                                <div class="frequency-option" data-frequency="custom">
+                                    <div class="frequency-icon">
+                                        <i class="fas fa-cog"></i>
+                                    </div>
+                                    <div>Custom</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label class="form-label">Time Slots</label>
+                            <div class="time-slots-container">
+                                <div class="time-slot">
+                                    <i class="fas fa-clock"></i>
+                                    <input type="time" class="time-input" value="08:00">
+                                    <button type="button" class="remove-time-btn">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="time-slot">
+                                    <i class="fas fa-clock"></i>
+                                    <input type="time" class="time-input" value="14:00">
+                                    <button type="button" class="remove-time-btn">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="time-slot">
+                                    <i class="fas fa-clock"></i>
+                                    <input type="time" class="time-input" value="20:00">
+                                    <button type="button" class="remove-time-btn">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <button type="button" class="add-time-btn">
+                                <i class="fas fa-plus"></i>
+                                Add Another Time
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Reminder Settings -->
+                <div class="form-section">
+                    <div class="form-header">
+                        <div class="form-header-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div>
+                            <h2>Reminder Settings</h2>
+                            <p style="color: var(--gray);">Configure notifications</p>
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Reminder Before</label>
+                            <select class="form-select" id="reminderBefore">
+                                <option value="5">5 minutes</option>
+                                <option value="15" selected>15 minutes</option>
+                                <option value="30">30 minutes</option>
+                                <option value="60">1 hour</option>
+                                <option value="120">2 hours</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Notification Type</label>
+                            <select class="form-select" id="notificationType">
+                                <option value="push">Push Notification</option>
+                                <option value="email">Email</option>
+                                <option value="both">Both</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <div style="display: flex; align-items: center; gap: 15px; padding: 15px; background: var(--glass-bg); border-radius: 12px;">
+                                <div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(74, 111, 255, 0.1); display: flex; align-items: center; justify-content: center; color: var(--primary);">
+                                    <i class="fas fa-volume-up"></i>
+                                </div>
+                                <div style="flex: 1;">
+                                    <div style="font-weight: 600; margin-bottom: 5px;">Sound Alert</div>
+                                    <div style="color: var(--gray); font-size: 0.9rem;">Play sound with notifications</div>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Form Actions -->
+                <div class="form-actions">
+                    <button type="button" class="cancel-btn" onclick="window.history.back()">
+                        Cancel
+                    </button>
+                    <button type="submit" class="submit-btn" id="submitMedicine">
+                        <i class="fas fa-plus"></i>
+                        Add Medicine
+                    </button>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Medicine Preview -->
+        <div class="medicine-preview" id="medicinePreview">
+            <div class="preview-header">
+                <i class="fas fa-eye"></i>
+                <h3>Preview</h3>
+            </div>
+            <div class="preview-medicine">
+                <div class="preview-name" id="previewName">Medicine Name</div>
+                <div class="preview-schedule">
+                    <i class="fas fa-clock"></i>
+                    <span id="previewSchedule">Daily at 08:00, 14:00, 20:00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Add Medicine Page Script
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize form interactions
+            initMedicineForm();
+            initPreviewUpdates();
+        });
+        
+        function initMedicineForm() {
+            // Frequency selection
+            const frequencyOptions = document.querySelectorAll('.frequency-option');
+            frequencyOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    frequencyOptions.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                    
+                    // Update preview
+                    updatePreview();
+                });
+            });
+            
+            // Default selection
+            document.querySelector('[data-frequency="daily"]').classList.add('selected');
+            
+            // Time slot management
+            const addTimeBtn = document.querySelector('.add-time-btn');
+            const timeSlotsContainer = document.querySelector('.time-slots-container');
+            
+            addTimeBtn.addEventListener('click', () => {
+                const timeSlot = document.createElement('div');
+                timeSlot.className = 'time-slot';
+                timeSlot.innerHTML = `
+                    <i class="fas fa-clock"></i>
+                    <input type="time" class="time-input" value="09:00">
+                    <button type="button" class="remove-time-btn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                
+                timeSlotsContainer.appendChild(timeSlot);
+                
+                // Add remove functionality
+                const removeBtn = timeSlot.querySelector('.remove-time-btn');
+                removeBtn.addEventListener('click', () => {
+                    timeSlot.remove();
+                    updatePreview();
+                });
+                
+                // Add input listener
+                const timeInput = timeSlot.querySelector('.time-input');
+                timeInput.addEventListener('change', updatePreview);
+                
+                updatePreview();
+            });
+            
+            // Add remove functionality to existing time slots
+            document.querySelectorAll('.remove-time-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.closest('.time-slot').remove();
+                    updatePreview();
+                });
+            });
+            
+            // Add input listeners to existing time inputs
+            document.querySelectorAll('.time-input').forEach(input => {
+                input.addEventListener('change', updatePreview);
+            });
+            
+            // Form submission
+            const submitBtn = document.getElementById('submitMedicine');
+            submitBtn.addEventListener('click', submitMedicineForm);
+            
+            // Set default dates
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 30);
+            
+            document.getElementById('startDate').valueAsDate = today;
+            document.getElementById('endDate').valueAsDate = tomorrow;
+            
+            // Add listeners to form inputs
+            const formInputs = document.querySelectorAll('.form-input, .form-select');
+            formInputs.forEach(input => {
+                input.addEventListener('input', updatePreview);
+                input.addEventListener('change', updatePreview);
+            });
+        }
+        
+        function initPreviewUpdates() {
+            // Show preview when scrolling
+            window.addEventListener('scroll', function() {
+                const preview = document.getElementById('medicinePreview');
+                if (window.scrollY > 200) {
+                    preview.classList.add('show');
+                } else {
+                    preview.classList.remove('show');
+                }
+            });
+            
+            // Initial preview update
+            updatePreview();
+        }
+        
+        function updatePreview() {
+            const name = document.getElementById('medicineName').value || 'Medicine Name';
+            const frequency = document.querySelector('.frequency-option.selected')?.dataset.frequency || 'daily';
+            
+            // Get all times
+            const times = Array.from(document.querySelectorAll('.time-input'))
+                .map(input => {
+                    const time = input.value;
+                    if (!time) return '';
+                    const [hours, minutes] = time.split(':');
+                    const hour = parseInt(hours);
+                    const period = hour >= 12 ? 'PM' : 'AM';
+                    const displayHour = hour % 12 || 12;
+                    return `${displayHour}:${minutes} ${period}`;
+                })
+                .filter(time => time)
+                .join(', ');
+            
+            // Update preview elements
+            document.getElementById('previewName').textContent = name || 'Medicine Name';
+            
+            let scheduleText = '';
+            if (times) {
+                scheduleText = `${frequency.charAt(0).toUpperCase() + frequency.slice(1)} at ${times}`;
+            } else {
+                scheduleText = 'Set schedule';
+            }
+            
+            document.getElementById('previewSchedule').textContent = scheduleText;
+        }
+        
+        function submitMedicineForm() {
+            const submitBtn = document.getElementById('submitMedicine');
+            const originalText = submitBtn.innerHTML;
+            
+            // Show loading state
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding...';
+            submitBtn.disabled = true;
+            
+            // Get form data
+            const formData = {
+                name: document.getElementById('medicineName').value,
+                type: document.getElementById('medicineType').value,
+                dosage: document.getElementById('dosage').value,
+                startDate: document.getElementById('startDate').value,
+                endDate: document.getElementById('endDate').value,
+                frequency: document.querySelector('.frequency-option.selected')?.dataset.frequency,
+                times: Array.from(document.querySelectorAll('.time-input')).map(input => input.value),
+                reminderBefore: document.getElementById('reminderBefore').value,
+                notificationType: document.getElementById('notificationType').value
+            };
+            
+            // Validate form
+            if (!formData.name || !formData.type || !formData.dosage || formData.times.length === 0) {
+                showNotification('Please fill in all required fields', 'error');
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                return;
+            }
+            
+            // Simulate API call
+            setTimeout(() => {
+                // Success animation
+                submitBtn.innerHTML = '<i class="fas fa-check"></i> Added!';
+                submitBtn.style.background = 'var(--success)';
+                
+                // Show success notification
+                showNotification('Medicine added successfully', 'success');
+                
+                // Redirect to dashboard after delay
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1500);
+            }, 1500);
+        }
+        
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `form-notification ${type}`;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'error' ? 'var(--danger)' : 'var(--success)'};
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                box-shadow: var(--glass-shadow);
+                z-index: 1000;
+                transform: translateX(400px);
+                opacity: 0;
+                transition: all 0.3s ease;
+            `;
+            
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+                notification.style.opacity = '1';
+            }, 10);
+            
+            // Auto remove
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
+                notification.style.opacity = '0';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+        
+        // Switch toggle styling
+        const style = document.createElement('style');
+        style.textContent = `
+            .switch {
+                position: relative;
+                display: inline-block;
+                width: 60px;
+                height: 30px;
+            }
+            
+            .switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+            
+            .slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: var(--glass-border);
+                transition: .4s;
+                border-radius: 34px;
+            }
+            
+            .slider:before {
+                position: absolute;
+                content: "";
+                height: 22px;
+                width: 22px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                transition: .4s;
+                border-radius: 50%;
+            }
+            
+            input:checked + .slider {
+                background-color: var(--primary);
+            }
+            
+            input:checked + .slider:before {
+                transform: translateX(30px);
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
